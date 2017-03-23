@@ -7,8 +7,13 @@ def create_db(dbname):
 	con = psycopg2.connect(dbname='postgres', user='postgres', host='localhost', password='potato')
 	con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 	cur = con.cursor()
-	cur.execute('CREATE DATABASE ' + dbname)
+	created = True
+	try:
+		cur.execute('CREATE DATABASE ' + dbname)
+	except:
+		created = False
 	cur.close()
+	return created
 
 
 def create_tables(dbname):
@@ -24,7 +29,7 @@ def create_tables(dbname):
 		)
 		""",
 		"""
-		CREATE TABLE Production (
+		CREATE TABLE "Production Company" (
 			pc_id INTEGER PRIMARY KEY,
 			name VARCHAR(10) NOT NULL,
 			address VARCHAR(30) NOT NULL,
@@ -37,7 +42,7 @@ def create_tables(dbname):
 			name VARCHAR(10) NOT NULL,
 			year SMALLINT,
 			"imdb score" DECIMAL,
-			"production company" INTEGER REFERENCES Production(pc_id),
+			"production company" INTEGER REFERENCES "Production Company"(pc_id),
 			CHECK (movie_id >= 1 AND movie_id <= 1000000),
 			CHECK (year >= 1900 AND year <= 2000),
 			CHECK ("imdb score" >= 1.0 AND "imdb score" <= 5.0)
@@ -51,25 +56,36 @@ def create_tables(dbname):
 		)
 		"""
 	]
+	created = True
 	for command in table_commands:
-		cur.execute(command)
+		try:
+			cur.execute(command)
+		except:
+			created = False
 	cur.close()
+	return created
 
 
 def clean_slate(dbname):
 	con = psycopg2.connect(dbname=dbname, user='postgres', host='localhost', password='potato')
 	con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 	cur = con.cursor()
-	tablenames = ["Actor", "Production", "Movie", "Casting"]
+	tablenames = ["Casting", "Movie", "\"Production Company\"", "Actor"]
+	dropped = True
 	for tablename in tablenames:
-		cur.execute("DROP TABLE" + tablename + " ;")
+		try:
+			cur.execute("DROP TABLE " + tablename + " ;")
+		except:
+			dropped = False
 	cur.close()
+	return dropped
 
 
 if __name__ == "__main__":
 	dbname = sys.argv[1]
-	# clean_slate()
-	create_db(dbname)
-	print("Database created")
-	create_tables(dbname)
-	print("Tables created")
+	if clean_slate(dbname):
+		print("Tables cleared")
+	if create_db(dbname):
+		print("Database created")
+	if create_tables(dbname):
+		print("Tables created")
