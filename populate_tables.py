@@ -83,9 +83,9 @@ def clean_slate(dbname):
 
 if __name__ == "__main__":
 	dbname = sys.argv[1]
-	if clean_slate(dbname):
-		print("Tables cleared")
 	if create_db(dbname):
 		print("Database created")
+	if clean_slate(dbname):
+		print("Tables cleared")
 	if create_tables(dbname):
 		print("Tables created")
