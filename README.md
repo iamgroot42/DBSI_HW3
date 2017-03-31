@@ -15,6 +15,9 @@ Run the folliwng commands (in order):
 ### Running it
 
 * `python populate_tables.py <dbname>` to create a database 'dbname' and create tables appropriately.
+* `python push_data.py <dbname>` to populate tables wih synthetic data from defined distributions.
+* `python make_indices.py <dbname>` to make btree indices for these tables.
+* `python run_queries.py <dbname` to run queries and see their outputs.
 
 
 ### Description
@@ -42,7 +45,7 @@ Casting:
 
 Each movie has 4 actors, all movies have actors
 
-Indices on:
+Indices (btree) on:
 	actor table name
 	name in movie table
 	year in movie

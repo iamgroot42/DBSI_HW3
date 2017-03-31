@@ -60,10 +60,10 @@ def get_castings(size, sample):
 	m_ids = []
 	a_ids = []
 	for i in range(1,size+1):
-		actors = np.random.choice(sample, 4)
+		actors = np.random.choice(sample, 4, replace=False)
 		for actor in actors:
 			m_ids.append(i)
-			a_ids.append(actor)
+			a_ids.append(actor + 1)
 	print("Data for Casting generated")
 	return (m_ids, a_ids)
 
