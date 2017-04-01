@@ -27,7 +27,7 @@ Actor:
 	a_id [1,200000]
 	name [15string]	
 
-Production Company:
+ProductionCompany:
 	pc_id [1,50000]
 	name [10string]
 	address [30string]

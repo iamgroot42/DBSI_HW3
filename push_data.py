@@ -29,7 +29,7 @@ def get_companies(size):
 	for i in range(size):
 		names.append(random_string(10))
 		addresses.append(random_string(30))
-	print("Data for Production Company generated")
+	print("Data for ProductionCompany generated")
 	return (pc_ids, names, addresses)
 
 
@@ -82,9 +82,9 @@ def push_to_table(dbname, data, ttype):
 			data = (a_ids[i], names[i])
 			cur.execute(query, data)
 		done = True
-	elif ttype == "Production Company":
+	elif ttype == "ProductionCompany":
 		pc_ids, names, addresses = data
-		query =  "INSERT INTO \"Production Company\" (pc_id, name, address) VALUES (%s, %s, %s);"
+		query =  "INSERT INTO ProductionCompany (pc_id, name, address) VALUES (%s, %s, %s);"
 		for i in pbar(range(len(pc_ids))):
 			data = (pc_ids[i], names[i], addresses[i])
 			cur.execute(query, data)
@@ -111,6 +111,6 @@ def push_to_table(dbname, data, ttype):
 if __name__ == "__main__":
 	dbname = sys.argv[1]
 	push_to_table(dbname, get_actors(200000), 'Actor')
-	push_to_table(dbname, get_companies(50000), 'Production Company')
+	push_to_table(dbname, get_companies(50000), 'ProductionCompany')
 	push_to_table(dbname, get_movies(1000000), 'Movie')
 	push_to_table(dbname, get_castings(1000000, 200000), 'Casting')

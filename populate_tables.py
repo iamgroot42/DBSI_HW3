@@ -29,7 +29,7 @@ def create_tables(dbname):
 		)
 		""",
 		"""
-		CREATE TABLE "Production Company" (
+		CREATE TABLE ProductionCompany (
 			pc_id INTEGER PRIMARY KEY,
 			name VARCHAR(10) NOT NULL,
 			address VARCHAR(30) NOT NULL,
@@ -42,7 +42,7 @@ def create_tables(dbname):
 			name VARCHAR(10) NOT NULL,
 			year SMALLINT,
 			"imdb score" DECIMAL,
-			"production company" INTEGER REFERENCES "Production Company"(pc_id),
+			"production company" INTEGER REFERENCES ProductionCompany(pc_id),
 			CHECK (movie_id >= 1 AND movie_id <= 1000000),
 			CHECK (year >= 1900 AND year <= 2000),
 			CHECK ("imdb score" >= 1.0 AND "imdb score" <= 5.0)
@@ -70,7 +70,7 @@ def clean_slate(dbname):
 	con = psycopg2.connect(dbname=dbname, user='postgres', host='localhost', password='potato')
 	con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 	cur = con.cursor()
-	tablenames = ["Casting", "Movie", "\"Production Company\"", "Actor"]
+	tablenames = ["Casting", "Movie", "Production Company", "Actor"]
 	dropped = True
 	for tablename in tablenames:
 		try:

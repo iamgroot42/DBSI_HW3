@@ -37,12 +37,12 @@ def commands(dbname):
 	except:
 		print("Set2 queries incomplete")
 	set3 = [
-	 "SELECT Actor.name, Movie.name FROM Actor JOIN Movie JOIN Casting where Actor.a_id < 50"
-	,"SELECT Actor.name, Movie.name FROM Actor JOIN Movie JOIN Casting where Movie.m_id < 100"
-	,"SELECT Actor.name, Movie.name FROM Actor JOIN Movie JOIN Casting where Movie.year between 1990 and 2000"
-	,"SELECT Actor.name, \"Production Company.name\" FROM Movie JOIN \"Production Company\" WHERE \"Production Company.pc_id\" < 50"
-	,"SELECT Actor.name, \"Production Company.name\" FROM Movie JOIN \"Production Company\" WHERE \"Actor.imdb score\" < 1.5"
-	,"SELECT Actor.name, \"Production Company.name\" FROM Movie JOIN \"Production Company\" WHERE Actor.year BETWEEN 1950 and 2000"
+	 "SELECT a.name, b.name FROM Actor a NATURAL JOIN Movie b NATURAL JOIN Casting c where a.a_id < 50"
+	,"SELECT a.name, b.name FROM Actor a NATURAL JOIN Movie b NATURAL JOIN Casting c where c.m_id < 100"
+	,"SELECT a.name, b.name FROM Actor a NATURAL JOIN Movie b NATURAL JOIN Casting c where b.year between 1990 and 2000"
+	,"SELECT a.name, b.name FROM Movie a NATURAL JOIN ProductionCompany b WHERE b.pc_id < 50"
+	,'SELECT a.name, b.name FROM Movie a NATURAL JOIN ProductionCompany b WHERE a."imdb score" < 1.5'
+	,"SELECT a.name, b.name FROM Movie a NATURAL JOIN ProductionCompany b WHERE a.year BETWEEN 1950 and 2000"
 	]
 	try:
 		for command in set3:
