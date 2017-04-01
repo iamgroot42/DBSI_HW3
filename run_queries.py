@@ -18,7 +18,7 @@ def commands(dbname):
 			cur.execute("EXPLAIN ANALYZE " + command + ";")
 			print(cur.fetchall())
 			raw_input("Done")
-			cur.execute("SELECT COUNT(*) FROM ( " + command + " );")
+			cur.execute("SELECT COUNT(*) FROM (" + command + ") AS foo;")
 			print(cur.fetchall())
 			raw_input("Done")
 		print("Set1 done")
@@ -37,12 +37,12 @@ def commands(dbname):
 	except:
 		print("Set2 queries incomplete")
 	set3 = [
-	 "SELECT a.name, b.name FROM actor a JOIN movie b JOIN casting where a.a_id < 50;"
-	,"SELECT a.name, b.name FROM actor a JOIN movie b JOIN casting where b.m_id < 100;"
-	,"SELECT a.name, b.name FROM actor a JOIN movie b JOIN casting where b.year < 2000 and b.year > 1990;"
-	,"SELECT a.name, b.name FROM Movie JOIN \"Production Company\" WHERE pc_id < 50;"
-	,"SELECT a.name, b.name FROM Movie JOIN \"Production Company\" WHERE \"imdb score\" < 1.5;"
-	,"SELECT a.name, b.name FROM Movie JOIN \"Production Company\" WHERE year < 2000 and year > 1950;"
+	 "SELECT Actor.name, Movie.name FROM Actor JOIN Movie JOIN Casting where Actor.a_id < 50"
+	,"SELECT Actor.name, Movie.name FROM Actor JOIN Movie JOIN Casting where Movie.m_id < 100"
+	,"SELECT Actor.name, Movie.name FROM Actor JOIN Movie JOIN Casting where Movie.year between 1990 and 2000"
+	,"SELECT Actor.name, \"Production Company.name\" FROM Movie JOIN \"Production Company\" WHERE \"Production Company.pc_id\" < 50"
+	,"SELECT Actor.name, \"Production Company.name\" FROM Movie JOIN \"Production Company\" WHERE \"Actor.imdb score\" < 1.5"
+	,"SELECT Actor.name, \"Production Company.name\" FROM Movie JOIN \"Production Company\" WHERE Actor.year BETWEEN 1950 and 2000"
 	]
 	try:
 		for command in set3:

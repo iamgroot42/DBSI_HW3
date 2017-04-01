@@ -65,7 +65,7 @@ def get_castings(size, sample):
 			m_ids.append(i)
 			a_ids.append(actor + 1)
 	print("Data for Casting generated")
-	return (m_ids, a_ids)
+	return (a_ids, m_ids)
 
 
 def push_to_table(dbname, data, ttype):
