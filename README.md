@@ -1,4 +1,6 @@
 # DBSI_HW3
+<i> Anshuman Suri, 2014021 <br>
+Rounaq Jhunjhunu Wala, 2014089</i>
 
 
 ### Setting it up
@@ -11,7 +13,6 @@ Run the folliwng commands (in order):
 * `ALTER USER "postgres" WITH PASSWORD 'potato';` to change the default password 
 
 
-
 ### Running it
 
 * `python populate_tables.py <dbname>` to create a database 'dbname' and create tables appropriately.
@@ -20,34 +21,36 @@ Run the folliwng commands (in order):
 * `python run_queries.py <dbname` to run queries and see their outputs.
 
 
-### Description
+### Database Description
 
-
-Actor:
+```
+* Table: Actor:
 	a_id [1,200000]
-	name [15string]	
+	name [15string]
 
-ProductionCompany:
+* Table: ProductionCompany:
 	pc_id [1,50000]
 	name [10string]
 	address [30string]
 
-Movie:
+* Table: Movie:
 	m_id [1,1000000]
 	name [10string]
 	year [1900,2000]
 	imdb score [1.0,5.0] (95% of scores in [1.0,2.0], 5% of scores in (2.0,5.0]
 	pc_id ( 90% are in [1,100], 10% are in [11,50000])
 
-Casting:
+* Table: Casting:
 	m_id
 	a_id
 
-Each movie has 4 actors, all movies have actors
+* Each movie has 4 actors, all movies have actors
 
-Indices (btree) on:
-	actor table name
-	name in movie table
-	year in movie
-	m_id in Casting
-	a_id in casting
+* Indices (btree) on:
+	Actor(name)
+	Movie(name)
+	Movie(year)
+	Movie(imdb score)
+	Movie(production company)
+	Casting(m_id)
+	Casting(a_id)
