@@ -37,12 +37,12 @@ def commands(dbname):
 	except:
 		print("Set2 queries incomplete")
 	set3 = [
-	 "SELECT a.name, b.name FROM Actor a NATURAL JOIN Movie b NATURAL JOIN Casting c where a.a_id < 50"
-	,"SELECT a.name, b.name FROM Actor a NATURAL JOIN Movie b NATURAL JOIN Casting c where c.m_id < 100"
-	,"SELECT a.name, b.name FROM Actor a NATURAL JOIN Movie b NATURAL JOIN Casting c where b.year between 1990 and 2000"
-	,"SELECT a.name, b.name FROM Movie a NATURAL JOIN ProductionCompany b WHERE b.pc_id < 50"
-	,'SELECT a.name, b.name FROM Movie a NATURAL JOIN ProductionCompany b WHERE a."imdb score" < 1.5'
-	,"SELECT a.name, b.name FROM Movie a NATURAL JOIN ProductionCompany b WHERE a.year BETWEEN 1950 and 2000"
+	 "SELECT a.name, b.name FROM Actor a INNER JOIN Casting c ON (a.a_id = c.a_id) INNER JOIN Movie b  ON (b.movie_id = c.m_id) where a.a_id < 50"
+	,"SELECT a.name, b.name FROM Actor a INNER JOIN Casting c ON (a.a_id = c.a_id) INNER JOIN Movie b  ON (b.movie_id = c.m_id) where c.m_id < 100"
+	,"SELECT a.name, b.name FROM Actor a INNER JOIN Casting c ON (a.a_id = c.a_id) INNER JOIN Movie b  ON (b.movie_id = c.m_id) where b.year between 1990 and 2000"
+	,"SELECT a.name, b.name FROM Movie a INNER JOIN ProductionCompany b ON (a.\"production company\" = b.pc_id) WHERE b.pc_id < 50"
+	,'SELECT a.name, b.name FROM Movie a INNER JOIN ProductionCompany b ON (a.\"production company\" = b.pc_id) WHERE a."imdb score" < 1.5'
+	,"SELECT a.name, b.name FROM Movie a INNER JOIN ProductionCompany b ON (a.\"production company\" = b.pc_id) WHERE a.year BETWEEN 1950 and 2000"
 	]
 	try:
 		for command in set3:
